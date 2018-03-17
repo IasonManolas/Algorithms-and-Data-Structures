@@ -1,5 +1,3 @@
-#include <stdlib.h>
-
 template <typename T>
 class Vector {
 	static const unsigned int initial_size = 2;
@@ -9,15 +7,13 @@ class Vector {
 	unsigned int m_size{0};
 
 	void resize(unsigned int new_capacity) {
-		T* new_array = (T*)(realloc(arr, new_capacity * sizeof(T)));
-		if (new_array) {
-			m_capacity = new_capacity;
-			arr = new_array;
-		} else {
-			std::cout << "Could not allocate memory!" << std::endl;
-			// 1) In which cases can memory not be allocated
-			// 2) How should I handle those?
+		T* new_array = new T[new_capacity];
+
+		for (int i = 0; i < m_size; ++i) {
+			new_array[i] = arr[i];
 		}
+		m_capacity = new_capacity;
+		arr = new_array;
 	}
 
 	void shift_right(int index) {
@@ -35,7 +31,8 @@ class Vector {
 	}
 
        public:
-	Vector() { arr = (T*)malloc(initial_size * sizeof(T)); }
+	Vector() { arr = new T[initial_size]; }
+	~Vector() { delete[] arr; }
 
 	void print() const {
 		for (unsigned int i = 0; i < m_size; i++) {
