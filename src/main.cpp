@@ -1,30 +1,25 @@
 #include <iostream>
-#include "vector.hpp"
+#include "forwardlist.hpp"
 
+using namespace std;
 int main() {
-	Vector<double> v;
-	std::cout << "Size:" << v.size() << std::endl;
-	std::cout << "Capacity:" << v.capacity() << std::endl;
-	for (int i = 0; i < 10; i++) {
-		v.push(i / 10.0);
+	ForwardList<double> l;
+	cout << "Size:" << l.size() << endl;
+	for (int i = 0; i < 10; ++i) {
+		l.push_front(i);
 	}
-	v.print();
-	std::cout << "Size:" << v.size() << std::endl;
-	std::cout << "Capacity:" << v.capacity() << std::endl;
-	v.insert(2, 99);
-	v.print();
-	std::cout << "Size:" << v.size() << std::endl;
-	std::cout << "Capacity:" << v.capacity() << std::endl;
-	v.prepend(99);
-	v.print();
-	std::cout << "Size:" << v.size() << std::endl;
-	std::cout << "Capacity:" << v.capacity() << std::endl;
+	cout << "Size:" << l.size() << endl;
+	l.print();
+	cout << "Value at 1:" << l.value_at(1) << endl;
 
-	v.remove(99);
-	v.print();
-	std::cout << "Size:" << v.size() << std::endl;
-	std::cout << "Capacity:" << v.capacity() << std::endl;
+	cout << "pop front " << l.pop_front() << endl;
+	l.print();
 
-	std::cout << "Find 3:" << v.find(3) << std::endl;
+	cout << "front:" << l.front() << endl;
+
+	l.insert(4, 99);
+	l.print();
+	l.erase(4);
+	l.print();
 	return 0;
 }
